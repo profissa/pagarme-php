@@ -1,13 +1,14 @@
 language: php
 
 php:
-    - 5.6
-    - 5.5
-    - 5.4
-    - 5.3
+   - 7.0
+   - 5.6
+   - 5.5
+   - 5.4
+   - 5.3
 
 before_script:
-    - composer self-update
-    - composer install --prefer-sorce --no-interaction --dev
+   - composer self-update
+   - composer update
 
-script: phpunit
+script: phpunit --debug --colors --bootstrap vendor/autoload.php tests_phpunit/TestPagarme.php
