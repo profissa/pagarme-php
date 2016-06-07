@@ -39,12 +39,13 @@ abstract class Core
     }
 
     /**
-     * @param $id
-     * @param $fingerprint
+     * @param $payload
+     * @param $signature
      * @return bool
      */
-    public static function validateFingerprint($id, $fingerprint)
-    {
-        return (sha1($id . "#" . self::$api_key) == $fingerprint);
-    }
+    public static function validateRequestSignature($payload, $signature) {
+		$parts = explode("=", $signature, 2);
+		return ( count($parts) == 2 ) && ( hash_hmac($parts[0], $payload, self::$api_key) == $parts[1] );
+	}
+    
 }
